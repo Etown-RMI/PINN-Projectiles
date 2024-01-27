@@ -22,7 +22,7 @@ def generate_and_save_plot():
     ic1 = pinns.IC(x_ic=0, f=v0, y_der=1)
     ic2 = pinns.IC(x_ic=0, f=x0, y_der=0)
     model = pinns.net(inputs=1, layers=2 * [32], activation='softplus', outputs=1)
-    pinns.train(model, x, pde, [ic1, ic2], epochs=1000, lr=0.01)
+    pinns.train(model, x, pde, [ic1, ic2], epochs=2000, lr=0.01)
 
     x_test = np.linspace(0, 10, 100)
     y_true = (accel/2)*x_test**2 + v0*x_test + x0
