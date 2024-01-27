@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns
+import taipy as tp
 
 x = pinns.Domain(-1, 1, 100)
 
