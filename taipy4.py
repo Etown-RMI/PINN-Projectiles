@@ -1,4 +1,4 @@
-#Test 3 (this one works as needed but gotta look better)
+#Better version of 3
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns
@@ -49,7 +49,7 @@ build_msg_task_cfg = tp.Config.configure_task("build_msg", build_message, input_
 scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[build_msg_task_cfg])
 
 page = """
-Name: <|{input_name}|input|>
+Input Params: <|{input_name}|input|>
 <|submit|button|on_action=submit_scenario|>
 
 <|{message}|text|>

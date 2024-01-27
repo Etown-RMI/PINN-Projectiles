@@ -1,4 +1,4 @@
-# Test 4
+# multi in to multi output, projectile model evaluation is flawed though
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns

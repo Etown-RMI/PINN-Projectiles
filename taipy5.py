@@ -1,4 +1,4 @@
-# Test 4
+#Accepts 1 input gets multiple outputs, merged over the projectile motion model
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns
@@ -34,21 +34,16 @@ def generate_and_save_plot():
     plt.savefig('output_plot.png')
     plt.close()
 
-def build_message(name: str):
+def build_message(name:str):
     return f"Please wait... Generating plot!"
-
-def build_message_accel(name: str):
+def build_message_accel(name:str):
     return f"Acceleration: {name}"
-
 def build_message_vel(name: str):
     return f"Init Velocity: {name}"
-
 def build_message_pos(name: str):
     return f"Init Position: {name}"
 
 input_name_data_node_cfg = tp.Config.configure_data_node(id="input_name")
-input_name_data_node_cfg2 = tp.Config.configure_data_node(id="input_name2")
-input_name_data_node_cfg3 = tp.Config.configure_data_node(id="input_name3")
 
 loading_message_cfg = tp.Config.configure_data_node(id="loading_message")
 message_data_node_cfg = tp.Config.configure_data_node(id="message")
@@ -59,15 +54,15 @@ plot_data_node_cfg = tp.Config.configure_data_node(id="plot")  # Add a data node
 
 build_loading_msg = tp.Config.configure_task("build_msg", build_message, input_name_data_node_cfg, loading_message_cfg)
 build_msg_task_cfg = tp.Config.configure_task("build_msg_accel", build_message_accel, input_name_data_node_cfg, message_data_node_cfg)
-build_msg_task_cfg2 = tp.Config.configure_task("build_msg_vel", build_message_vel, input_name_data_node_cfg2, message_data_node_cfg2)
-build_msg_task_cfg3 = tp.Config.configure_task("build_msg_pos", build_message_pos, input_name_data_node_cfg3, message_data_node_cfg3)
+build_msg_task_cfg2 = tp.Config.configure_task("build_msg_vel", build_message_vel, input_name_data_node_cfg, message_data_node_cfg2)
+build_msg_task_cfg3 = tp.Config.configure_task("build_msg_pos", build_message_pos, input_name_data_node_cfg, message_data_node_cfg3)
 
-scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[build_loading_msg, build_msg_task_cfg, build_msg_task_cfg2, build_msg_task_cfg3])
+#scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[build_msg_task_cfg,build_msg_task_cfg2,build_msg_task_cfg3])
+#scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[build_loading_msg])
+scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[build_loading_msg,build_msg_task_cfg,build_msg_task_cfg2,build_msg_task_cfg3])
 
 page = """
-Acceleration: <|{input_name}|input|>
-Velocity: <|{input_name2}|input|>
-Position: <|{input_name3}|input|>
+Input Params: <|{input_name}|input|>
 <|submit|button|on_action=submit_scenario|>
 
 <|{loading_message}|text|>
@@ -82,9 +77,6 @@ Position: <|{input_name3}|input|>
 """
 
 input_name = ""
-input_name2 = ""
-input_name3 = ""
-
 loading_message = None
 message = None
 message2 = None
@@ -92,16 +84,8 @@ message3 = None
 plot = None  # Initialize plot
 
 def submit_scenario(state):
-    global plot, accel, v0, x0
+    global plot
     state.scenario.input_name.write(state.input_name)
-    state.scenario.input_name2.write(state.input_name2)
-    state.scenario.input_name3.write(state.input_name3)
-
-    # Update variables with input values
-    accel = float(state.input_name)
-    v0 = float(state.input_name2)
-    x0 = float(state.input_name3)
-
     state.scenario.submit(wait=True)
     state.loading_message = state.scenario.loading_message.read()
     state.message = state.scenario.message.read()

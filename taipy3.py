@@ -1,4 +1,4 @@
-#Test 4
+#Plot generates on button press
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns
@@ -49,7 +49,7 @@ build_msg_task_cfg = tp.Config.configure_task("build_msg", build_message, input_
 scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[build_msg_task_cfg])
 
 page = """
-Input Params: <|{input_name}|input|>
+Name: <|{input_name}|input|>
 <|submit|button|on_action=submit_scenario|>
 
 <|{message}|text|>

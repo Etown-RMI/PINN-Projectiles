@@ -1,4 +1,4 @@
-#taipy test 2
+#Integrate Taipy with Pinns
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns
