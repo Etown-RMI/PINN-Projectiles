@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pinns
+import gif
 
 x = pinns.Domain(0, 10, 100)
 accel = -9.8
@@ -23,13 +24,15 @@ x_test = np.linspace(0, 10, 100)
 y_true = (accel/2)*x_test**2 + v0*x_test + x0
 y_pred = model(x_test)
 
+
 def plot_gif(i):
-    predi=y_pred[i]
-    truei=y_true[i]
-    plt.scatter(2,predi, c="orange")
-    plt.scatter(2,truei, c="blue")
-    plt.xlim(0,4)
+    predi = y_pred[i]
+    truei = y_true[i]
+    plt.scatter(2, predi, c="orange")
+    plt.scatter(2, truei, c="blue")
+    plt.xlim(0, 4)
     plt.ylim(min(y_true), max(y_true))
-    
+
+
 frames = [plot_gif(i) for i in range(100)]
 gif.save(frames, "test.gif", duration=100)
