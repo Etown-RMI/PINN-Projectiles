@@ -2,3 +2,4 @@ taipy
 numpy
 pinns
 matplotlib
+gif
