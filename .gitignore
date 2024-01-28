@@ -9,6 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 .data/**
+src/.data/**
 **/DATANODE*
 output_plot.png
 build/
