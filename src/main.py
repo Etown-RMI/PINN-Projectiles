@@ -1,14 +1,8 @@
-
-# multi input to multi output, correctly graphs
-# issues still to tackle:
-# graph only displays if low epochs (executes quickly) for higher epochs you need to refresh the page for some reason
-# if you click the button again after getting a graph, you need to refresh to see the new graph
-# the "is generating " message should be deleted after the graph appears
-# if a graph is currently on screen, clicking the button should delete it while the new one generates
 import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 import pinns
+import gif
 import taipy as tp
 from taipy.gui import invoke_long_callback, notify
 matplotlib.use('agg')
@@ -47,6 +41,27 @@ def generate_and_save_plot():
     # Save the plot as an image file
     plt.savefig('output_plot.png')
     plt.close()
+
+
+def gen_and_save_gif():
+    global model, accel, v0, x0
+    x_test = np.linspace(0, 10, 100)
+    y_true = (accel/2)*x_test**2 + v0*x_test + x0
+    y_pred = model(x_test)
+
+    @gif.frame
+    def plot_gif(i):
+        predi = y_pred[i]
+        truei = y_true[i]
+        plt.scatter(truei, 2, c="blue")
+        plt.scatter(predi, 2, c="orange")
+        plt.ylim(0, 4)
+        plt.xlim(min(y_true), max(y_true))
+        plt.title('Simulation')
+        plt.legend(['Real', 'Predicted'])
+
+    frames = [plot_gif(i) for i in range(100)]
+    gif.save(frames, "sim.gif", duration=100)
 
 
 def build_message(name: str):
@@ -136,6 +151,9 @@ page = """
 |>
 |>
 |>
+<|Simulation|expandable|
+<center><|{sim}|image|></center>
+|>
 """
 
 
@@ -151,14 +169,26 @@ message2 = None
 message3 = None
 message4 = None
 plot = None
+sim = None
 
 
 def heavy_function_status(state, status):
     if status:
         state.plot = 'output_plot.png'
-        notify(state, "success", f"The model has finished!")
+        notify(state, "Success!", f"The model has finished!")
+        invoke_long_callback(state, gen_and_save_gif,
+                             [], heavy_function_status2)
+        notify(state, "Please Wait!", "The simulation is generating.")
     else:
-        notify(state, "error", f"The model has failed somehow...")
+        notify(state, "Error", f"The model has failed somehow...")
+
+
+def heavy_function_status2(state, status):
+    if status:
+        state.sim = 'sim.gif'
+        notify(state, "Success!", f"The simulation has finished!")
+    else:
+        notify(state, "Error", f"The simulation has failed somehow...")
 
 
 def submit_scenario(state):
@@ -169,6 +199,7 @@ def submit_scenario(state):
     state.scenario.input_name4.write(state.input_name4)
 
     state.plot = 'loading_gears.gif'
+    state.sim = 'loading_gears.gif'
 
     # Update variables with input values
     accel = float(state.input_name)
@@ -192,9 +223,11 @@ def submit_scenario(state):
 if __name__ == "__main__":
     tp.Core().run()
     scenario = tp.create_scenario(scenario_cfg)
-    dark_theme = { "palette": { "background": {"default": "#2e2c9a"}, "primary": {"main": "#eec8ed"}, } } 
-    light_theme = { "palette": { "primary": {"main": "#382d72"}, } } 
-    stylekit = { 'color_paper_dark': '#120348','color_paper_light': '#a080e1', }
+    dark_theme = {"palette": {"background": {
+        "default": "#2e2c9a"}, "primary": {"main": "#eec8ed"}, }}
+    light_theme = {"palette": {"primary": {"main": "#382d72"}, }}
+    stylekit = {'color_paper_dark': '#120348',
+                'color_paper_light': '#a080e1', }
 
     tp.Gui(page).run(
         title="PINN Projectiles",
