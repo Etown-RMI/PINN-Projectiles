@@ -192,8 +192,15 @@ def submit_scenario(state):
 if __name__ == "__main__":
     tp.Core().run()
     scenario = tp.create_scenario(scenario_cfg)
+    dark_theme = { "palette": { "background": {"default": "#2e2c9a"}, "primary": {"main": "#eec8ed"}, } } 
+    light_theme = { "palette": { "primary": {"main": "#382d72"}, } } 
+    stylekit = { 'color_paper_dark': '#120348','color_paper_light': '#a080e1', }
+
     tp.Gui(page).run(
         title="PINN Projectiles",
         watermark="© 2024 Etown RMI",
         favicon="./logo.png",
+        dark_theme=dark_theme,
+        light_theme=light_theme,
+        stylekit=stylekit,
     )
