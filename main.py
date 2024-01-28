@@ -139,6 +139,7 @@ def submit_scenario(state):
     state.scenario.input_name.write(state.input_name)
     state.scenario.input_name2.write(state.input_name2)
     state.scenario.input_name3.write(state.input_name3)
+    state.plot = 'loading_gears.gif'
 
 
     # Update variables with input values
