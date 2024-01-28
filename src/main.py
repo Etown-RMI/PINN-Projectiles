@@ -54,15 +54,15 @@ def build_message(name: str):
 
 
 def build_message_accel(name: str):
-    return f"Acceleration: {name}"
+    return f"A: {name}"
 
 
 def build_message_vel(name: str):
-    return f"Init Velocity: {name}"
+    return f"V0: {name}"
 
 
 def build_message_pos(name: str):
-    return f"Init Position: {name}"
+    return f"X0: {name}"
 
 
 def build_message_epo(name: str):
@@ -100,23 +100,32 @@ scenario_cfg = tp.Config.configure_scenario("scenario", task_configs=[
 
 
 page = """
+
+<|layout|columns=1 1fr 1|
+<|part|>
+<|part|
+<center><h1>PINN Projectiles</h1></center>
+|>
+<|toggle|theme|class_name=nolabel|>
+|>
+
 <|layout|
 <|card|
-<| Acceleration: |> <|{input_name}|input|>
+<center><| Acceleration: |> <|{input_name}|input|></center>
 
-<| Velocity: |> <|{input_name2}|input|>
+<center><| Velocity: |> <|{input_name2}|input|></center>
 
-<| Position: |> <|{input_name3}|input|>
+<center><| Position: |> <|{input_name3}|input|></center>
 
-<| Epochs: |> <|{input_name4}|input|>
+<center><| Epochs: |> <|{input_name4}|input|></center>
 
-<|submit|button|on_action=submit_scenario|>
+<center><|submit|button|on_action=submit_scenario|></center>
 |>
 <|card|
 <|{loading_message}|text|>
 
-<|layout|
-<|
+<center><|{plot}|image|></center>
+<|layout|columns=4*1|gap=5px|
 <|{message}|text|>
 
 <|{message2}|text|>
@@ -124,8 +133,6 @@ page = """
 <|{message3}|text|>
 
 <|{message4}|text|>
-|>
-<|{plot}|image|>
 |>
 |>
 |>
@@ -143,7 +150,7 @@ message = None
 message2 = None
 message3 = None
 message4 = None
-plot = None  # Initialize plot
+plot = None
 
 
 def heavy_function_status(state, status):
@@ -185,4 +192,8 @@ def submit_scenario(state):
 if __name__ == "__main__":
     tp.Core().run()
     scenario = tp.create_scenario(scenario_cfg)
-    tp.Gui(page).run()
+    tp.Gui(page).run(
+        title="PINN Projectiles",
+        watermark="© 2024 Etown RMI",
+        favicon="./logo.png",
+    )
