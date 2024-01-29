@@ -20,7 +20,7 @@ def pde(x, y):
     return pinns.Grad.hessian(y, x) - accel
 
 
-def generate_and_save_plot():
+def generate_and_save_plots():
     global model
     ic1 = pinns.IC(x_ic=0, f=v0, y_der=1)
     ic2 = pinns.IC(x_ic=0, f=x0, y_der=0)
@@ -32,14 +32,37 @@ def generate_and_save_plot():
     x_test = np.linspace(0, 10, 100)
     y_true = (accel/2)*x_test**2 + v0*x_test + x0
     y_pred = model(x_test)
+    y_pred_np = y_pred.numpy().flatten()
+    dy_true = np.gradient(y_true, x_test)
+    ddy_true = np.gradient(dy_true, x_test)
+    dy_pred = np.gradient(y_pred_np, x_test)
+    ddy_pred = np.gradient(dy_pred, x_test)
 
     plt.plot(y_true)
     plt.plot(y_pred)
-    plt.title('Evaluation')
+    plt.title('Position vs Time')
     plt.legend(['Real', 'Predicted'])
 
     # Save the plot as an image file
-    plt.savefig('output_plot.png')
+    plt.savefig('position_plot.png')
+    plt.close()
+    
+    plt.plot(dy_true)
+    plt.plot(dy_pred)
+    plt.title('Velocity vs Time')
+    plt.legend(['Real', 'Predicted'])
+
+    # Save the plot as an image file
+    plt.savefig('velocity_plot.png')
+    plt.close()
+    
+    plt.plot(ddy_true)
+    plt.plot(ddy_pred)
+    plt.title('Acceleration vs Time')
+    plt.legend(['Real', 'Predicted'])
+
+    # Save the plot as an image file
+    plt.savefig('acceleration_plot.png')
     plt.close()
 
 
@@ -139,7 +162,7 @@ page = """
 <|card|
 <|{loading_message}|text|>
 
-<center><|{plot}|image|></center>
+<center><|{sim}|image|></center>
 <|layout|columns=4*1|gap=5px|
 <|{message}|text|>
 
@@ -151,8 +174,12 @@ page = """
 |>
 |>
 |>
-<|Simulation|expandable|
-<center><|{sim}|image|></center>
+<|Comparison Plots|expandable|
+<center>
+<|{pos_plot}|image|>
+<|{vel_plot}|image|>
+<|{acc_plot}|image|>
+</center>
 |>
 """
 
@@ -168,13 +195,17 @@ message = None
 message2 = None
 message3 = None
 message4 = None
-plot = None
+pos_plot = None
+vel_plot = None
+acc_plot = None
 sim = None
 
 
 def heavy_function_status(state, status):
     if status:
-        state.plot = 'output_plot.png'
+        state.pos_plot = 'position_plot.png'
+        state.vel_plot = 'velocity_plot.png'
+        state.acc_plot = 'acceleration_plot.png'
         notify(state, "Success!", f"The model has finished!")
         invoke_long_callback(state, gen_and_save_gif,
                              [], heavy_function_status2)
@@ -192,13 +223,15 @@ def heavy_function_status2(state, status):
 
 
 def submit_scenario(state):
-    global plot, accel, v0, x0, epo
+    global pos_plot, accel, v0, x0, epo
     state.scenario.input_name.write(state.input_name)
     state.scenario.input_name2.write(state.input_name2)
     state.scenario.input_name3.write(state.input_name3)
     state.scenario.input_name4.write(state.input_name4)
 
-    state.plot = 'loading_gears.gif'
+    state.pos_plot = 'loading_gears.gif'
+    state.vel_plot = 'loading_gears.gif'
+    state.acc_plot = 'loading_gears.gif'
     state.sim = 'loading_gears.gif'
 
     # Update variables with input values
@@ -216,7 +249,7 @@ def submit_scenario(state):
 
     # Call the function to generate and save the plot
     notify(state, "Please Wait!", f"The model is training.")
-    invoke_long_callback(state, generate_and_save_plot,
+    invoke_long_callback(state, generate_and_save_plots,
                          [], heavy_function_status)
 
 

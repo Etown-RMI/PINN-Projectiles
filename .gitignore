@@ -11,7 +11,7 @@ __pycache__/
 .data/**
 src/.data/**
 **/DATANODE*
-output_plot.png
+*_plot.png
 build/
 develop-eggs/
 dist/
