@@ -93,14 +93,14 @@ To get a local copy up and running follow these simple example steps.
    git clone https://github.com/etown-rmi/PINN-Projectiles
    ```
 2. Navigate to src and Install Dependencies
-  ```bash
-  cd ./src
-  pip install -r ./requirements.txt
-  ```
+    ```bash
+    cd ./src
+    pip install -r ./requirements.txt
+    ```
 3. Run the main file
-   ```bash
+    ```bash
     python main.py
-   ```
+    ```
    
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
