@@ -149,13 +149,13 @@ page = """
 
 <|layout|
 <|card|
-<center><| Acceleration: |> <|{input_name}|input|></center>
+<center><|     Acceleration: |> <|{input_name}|input|></center>
 
-<center><| Velocity: |> <|{input_name2}|input|></center>
+<center><| Initial Velocity: |> <|{input_name2}|input|></center>
 
-<center><| Position: |> <|{input_name3}|input|></center>
+<center><| Initial Position: |> <|{input_name3}|input|></center>
 
-<center><| Epochs: |> <|{input_name4}|input|></center>
+<center><|  Training Epochs: |> <|{input_name4}|input|></center>
 
 <center><|submit|button|on_action=submit_scenario|></center>
 |>
@@ -191,14 +191,14 @@ input_name4 = "2000"
 
 
 loading_message = None
-message = None
-message2 = None
-message3 = None
-message4 = None
-pos_plot = None
-vel_plot = None
-acc_plot = None
-sim = None
+message = 'A: -9.8'
+message2 = 'X0 = 0'
+message3 = 'V0 = 100'
+message4 = 'Epochs = 2000'
+pos_plot = 'position_plot.png'
+vel_plot = 'velocity_plot.png'
+acc_plot = 'acceleration_plot.png'
+sim = 'sim.gif'
 
 
 def heavy_function_status(state, status):
