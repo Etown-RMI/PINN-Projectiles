@@ -1,14 +1,166 @@
-## Inspiration
-Our main reason for starting this project was to learn more about Taipy and how to use each of the three main applications for the frontend, backend, and development of our project. Additionally, for this Hackathon, three of our four group members are engineering majors, so we wanted to create a project that incorporates engineering with computer science. To achieve this, we decided to use physics-informed neutral networks (PINNs) since they can provide an easy way to predict the result of differential equations that are otherwise harder to solve. Our group picked projectile motion as the differential equation to model since all of the members were at least familiar with the concept. 
-## What it does
-PINN Projectiles is an interactive website that allows a user to train a PINN model to predict the projectile motion of an object given acceleration, velocity, and position. On the left of the website, there are three boxes that the user can enter their initial values into and then they use the submit button to create the graph. The graph will have two lines, one orange and one blue. The orange line represents our PINN's predicted projectile motion, and the blue line represents the real projectile motion. With about 1,000 epochs, the PINN's predicted line is almost completely on top of the real line which means that the PINN was successfully trained and can be used to find other projectile motion graphs.  
-## How we built it
-Our first step was to create a PINN model by calculating the loss equation using projectile motion equations Then we train a PINN by providing the initial conditions and domains for the initial conditions. This allows for the PINN to estimate the differential equation without having to run hundreds of thousands of epochs and instead can run a couple thousand which is much faster. Taipy was then used to create an interactive website that allows a user to train models on any values and then displays a graph with the predicted projectile path against the real projectile graph. The website itself is run on Taipy Cloud with the Taipy code running the displays and labels.   
-## Challenges we ran into
-The first major challenge we faced was shortening the time it takes to train the PINN model. At one point, the model was taken around 10 minutes to train, but we were able to reduce the training time to about 1 minute on a good computer by reducing the number of hidden layers and the size of the layers. Our major challenge with Taipy was that the graph of the projectile motion was not updating in real time. The process for the graph would stall out if the process took too long so the graph would not be updated on the website unless you refreshed the page. We found a way around this problem by using what Taipy refers to as a heavy function, long callback, and status. 
-## Accomplishments that we're proud of
-Our biggest accomplishment was successfully learning and utilizing a PINN. Our group has never used PINNs before and we a proud that we were able to learn it and get it running successfully in the 36 hours that we were provided. We also have never used Taipy before, so being able to complete and deploy a website from scratch is a big accomplishment for us.
-## What we learned
-We learned two new programs through this project: Taipy and PINN. None of our team members had experience using either of these programs before, so we now know how to implement these programs into other project in the future. 
-## What's next for PINN Projectiles
-Our current PINN Projectiles is setup to retrain our PINN every time the initial conditions change. The next step for the PINN Projectiles program would be to train a model to use one initial velocity, initial position, and initial acceleration and then be able to predict the projectile motion for any initial values instead. 
+<a name="readme-top"></a>
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+
+
+
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/etown-rmi/PINN-Projectiles">
+    <img src="images/logo.png" alt="Logo" width="150" height="150">
+  </a>
+<h3 align="center">PINN-Projectiles</h3>
+  <p align="center">
+    A python engine to create and test Go Fish bots
+    <br />
+    <a href="https://github.com/etown-rmi/PINN-Projectiles/wiki"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/etown-rmi/PINN-Projectiles/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/etown-rmi/PINN-Projectiles/issues">Request Feature</a>
+  </p>
+</div>
+
+
+
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
+
+
+
+<!-- ABOUT THE PROJECT -->
+## About The Project
+<img src="images/screenshot.png" alt="screenshot" width="960" height="540">
+
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+### Built With
+
+* Taipy
+* Matplotlib
+* Pinns
+* Gif
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+* [Python 3.8-3.11](https://www.python.org/downloads/)
+
+### Installation
+
+1. Clone the repository
+   ```sh
+   git clone https://github.com/etown-rmi/PINN-Projectiles
+   ```
+2. Navigate to src and Install Dependencies
+  ```bash
+  cd ./src
+  pip install -r ./requirements.txt
+  ```
+3. Run the main file
+   ```bash
+    python main.py
+   ```
+   
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Etown RMI Club - rmi@etown.edu
+
+Project Link: [https://github.com/etown-rmi/PINN-Projectiles](https://github.com/etown-rmi/PINN-Projectiles)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+<!-- ## Acknowledgments -->
+
+<!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/etown-rmi/PINN-Projectiles.svg?style=for-the-badge
+[contributors-url]: https://github.com/etown-rmi/PINN-Projectiles/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/etown-rmi/PINN-Projectiles.svg?style=for-the-badge
+[forks-url]: https://github.com/etown-rmi/PINN-Projectiles/network/members
+[stars-shield]: https://img.shields.io/github/stars/etown-rmi/PINN-Projectiles.svg?style=for-the-badge
+[stars-url]: https://github.com/etown-rmi/PINN-Projectiles/stargazers
+[issues-shield]: https://img.shields.io/github/issues/etown-rmi/PINN-Projectiles.svg?style=for-the-badge
+[issues-url]: https://github.com/etown-rmi/PINN-Projectiles/issues
+[license-shield]: https://img.shields.io/github/license/etown-rmi/PINN-Projectiles.svg?style=for-the-badge
+[license-url]: https://github.com/etown-rmi/PINN-Projectiles/blob/master/LICENSE.txt
+[product-screenshot]: images/screenshot.png
