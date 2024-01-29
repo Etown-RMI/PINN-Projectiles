@@ -16,7 +16,7 @@
   </a>
 <h3 align="center">PINN-Projectiles</h3>
   <p align="center">
-    A python engine to create and test Go Fish bots
+    A Taipy webpage that trains a Physics Informed Neural Network (PINN) for approximating linear projectile motion.
     <br />
     <a href="https://github.com/etown-rmi/PINN-Projectiles/wiki"><strong>Explore the docs »</strong></a>
     <br />
