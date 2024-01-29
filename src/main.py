@@ -13,7 +13,7 @@ x = pinns.Domain(0, 10, 100)
 accel = -9.8
 v0 = 10
 x0 = 0
-epo = 0
+epo = 2000
 
 
 def pde(x, y):
@@ -46,7 +46,7 @@ def generate_and_save_plots():
     # Save the plot as an image file
     plt.savefig('position_plot.png')
     plt.close()
-    
+
     plt.plot(dy_true)
     plt.plot(dy_pred)
     plt.title('Velocity vs Time')
@@ -55,7 +55,7 @@ def generate_and_save_plots():
     # Save the plot as an image file
     plt.savefig('velocity_plot.png')
     plt.close()
-    
+
     plt.plot(ddy_true)
     plt.plot(ddy_pred)
     plt.title('Acceleration vs Time')
@@ -184,10 +184,10 @@ page = """
 """
 
 
-input_name = ""
-input_name2 = ""
-input_name3 = ""
-input_name4 = ""
+input_name = "-9.8"
+input_name2 = "100"
+input_name3 = "0"
+input_name4 = "2000"
 
 
 loading_message = None
