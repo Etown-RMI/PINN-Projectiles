@@ -192,8 +192,8 @@ input_name4 = "2000"
 
 loading_message = None
 message = 'A: -9.8'
-message2 = 'X0 = 0'
-message3 = 'V0 = 100'
+message2 = 'V0 = 100'
+message3 = 'X0 = 0'
 message4 = 'Epochs = 2000'
 pos_plot = 'position_plot.png'
 vel_plot = 'velocity_plot.png'
