@@ -263,7 +263,7 @@ if __name__ == "__main__":
                 'color_paper_light': '#a080e1', }
 
     tp.Gui(page).run(
-        host="0.0.0.0"
+        host="0.0.0.0",
         title="PINN Projectiles",
         watermark="© 2024 Etown RMI",
         favicon="./logo.png",
